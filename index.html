@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta onpe</title>
+    <!-- Importación de Poppins con los pesos oficiales de la ONPE -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #b0b5ba; /* Color de fondo de la imagen original */
+        }
+        
+        /* Título con la 'a' circular de Poppins */
+        .titulo-onpe {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #0071bc;
+            letter-spacing: -0.01em;
+        }
+
+        /* DNI con el grosor exacto de la imagen */
+        .dni-exacto {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            color: #555555;
+            font-size: 1.05em;
+            letter-spacing: -0.01em;
+        }
+
+        .text-gray-onpe { 
+            color: #757575; 
+            font-weight: 400;
+        }
+
+        .bg-onpe-blue { 
+            background-color: #337ab7; 
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white; }
+            .modal-container { 
+                box-shadow: none !important; 
+                border: none !important;
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <!-- Herramientas (Ocultas al imprimir) -->
+    <div class="no-print mb-8 bg-white p-4 rounded-xl shadow-md flex gap-4">
+        <input type="text" id="dniInput" maxlength="8" class="border p-2 rounded w-32 text-center font-bold" placeholder="44470094">
+        <button onclick="updateDNI()" class="bg-blue-600 text-white px-4 py-2 rounded text-xs font-bold uppercase">Actualizar</button>
+        <button onclick="window.print()" class="bg-gray-800 text-white px-4 py-2 rounded text-xs font-bold uppercase">Imprimir</button>
+    </div>
+
+    <!-- Modal Principal -->
+    <div class="modal-container bg-white p-10 md:p-14 rounded-xl shadow-2xl max-w-[580px] w-full flex flex-col items-center text-center">
+        
+        <h2 class="titulo-onpe text-[20px] mb-8">
+            DNI no registrado como miembro de mesa
+        </h2>
+
+        <!-- Icono X -->
+        <div class="w-20 h-20 mb-8">
+            <svg viewBox="0 0 100 100" class="text-[#e30613]">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" />
+                <line x1="33" y1="33" x2="67" y2="67" stroke="currentColor" stroke-width="10" stroke-linecap="round" />
+                <line x1="67" y1="33" x2="33" y2="67" stroke="currentColor" stroke-width="10" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <!-- Texto con la 'a' correcta -->
+        <div class="text-gray-onpe text-[17px] leading-relaxed mb-10">
+            <p>
+                El DNI <strong id="dniDisplay" class="dni-exacto">44470094</strong> no registra participación como miembro de mesa en las Elecciones Generales 2026.
+            </p>
+        </div>
+
+        <button class="btn-aceptar bg-onpe-blue text-white px-12 py-2.5 text-[14px] font-medium uppercase rounded shadow-sm hover:bg-[#286090] transition-colors">
+            Aceptar
+        </button>
+    </div>
+
+    <script>
+        function updateDNI() {
+            const val = document.getElementById('dniInput').value;
+            if(val.length === 8) document.getElementById('dniDisplay').innerText = val;
+        }
+    </script>
+</body>
+</html>
